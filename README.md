@@ -1,4 +1,4 @@
-# StockHub: Online Stock Platform
+# eLibrario: Library Management System
 
 Welcome to eLibrario! It simplifies library management by offering a user-friendly interface for administrators to handle book and member information effortlessly. With features such as secure user authentication, responsive design, and a streamlined borrowing system, eLibrario ensures a smooth and organized library experience. The technology stack includes HTML/CSS for front-end styling, Bootstrap for responsiveness, JavaScript for dynamic interactions, PHP for server-side logic, MySQL for data storage, OpenAPI for documentation, and JWT Authentication for secure user access.
 
