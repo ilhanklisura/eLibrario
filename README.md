@@ -1,33 +1,37 @@
 # StockHub: Online Stock Platform
 
-Welcome to StockHub, your go-to Online Stock Platform designed to provide real-time stock information, market trends, and a user-friendly interface for managing your stock portfolio offering a comprehensive solution for stock enthusiasts and investors.
+Welcome to eLibrario! It simplifies library management by offering a user-friendly interface for administrators to handle book and member information effortlessly. With features such as secure user authentication, responsive design, and a streamlined borrowing system, eLibrario ensures a smooth and organized library experience. The technology stack includes HTML/CSS for front-end styling, Bootstrap for responsiveness, JavaScript for dynamic interactions, PHP for server-side logic, MySQL for data storage, OpenAPI for documentation, and JWT Authentication for secure user access.
 
 ## Features
 
-- **Real-time Stock Information:** Access up-to-date stock prices, market trends, and relevant financial data.
+- **Real-time Library Information:** Access up-to-date books, including adding, updating, and deleting book records.
 
-- **Portfolio Management:** Track and manage your stock portfolio with ease, including buy/sell transactions and overall performance analysis.
+- **Borrowing System:** Facilitate the borrowing and returning of books with a smooth process.
+
+- **Search Functionality:** Efficient search functionality for books and members.
+
+- **Member Management:** Keep track of library members with a user-friendly interface.
 
 - **User-Friendly Interface:** Enjoy a responsive and intuitive interface for a seamless user experience.
 
-- **Authentication and Authorization:** Ensure the security of your stock portfolio with JSON Web Tokens and robust authentication mechanisms.
+- **Authentication and Authorization:** Ensure the security of your library and users with JSON Web Tokens and robust authentication mechanisms.
 
-- **OpenAPI Integration:** Utilize OpenAPI for easy integration with other financial services and data providers.
+- **OpenAPI Integration:** Utilize OpenAPI for easy integration with other library services and data providers.
 
 ## Technologies Used
 
 - **Frontend:** HTML/CSS (Bootstrap), JavaScript (AJAX, jQuery)
-- **Backend:** PHP (FlightPHP)
+- **Backend:** PHP
 - **Database:** MySQL
 - **Authentication:** JSON Web Tokens (JWT)
-- **Integration:** OpenAPI
+- **Integration:** OpenAPI 3
 
 ## Getting Started
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/stockhub.git
+   git clone https://github.com/your-username/eLibrario.git
    ```
 
 2. Set up the database:
@@ -44,7 +48,7 @@ Welcome to StockHub, your go-to Online Stock Platform designed to provide real-t
 
    ```php
    // config.php
-   define('STOCK_API_KEY', 'your_api_key');
+   define('LIBRARY_API_KEY', 'your_api_key');
    ```
 
 4. Run the application:
@@ -59,7 +63,7 @@ Welcome to StockHub, your go-to Online Stock Platform designed to provide real-t
 
 ## Contributing
 
-We welcome contributions from the community! If you'd like to contribute to StockHub, please follow our [contribution guidelines](CONTRIBUTING.md).
+We welcome contributions from the community! If you'd like to contribute to eLibrario, please follow our [contribution guidelines](CONTRIBUTING.md).
 
 ## License
 
@@ -67,8 +71,8 @@ This project is licensed under the [MIT License](LICENSE.md).
 
 ## Support
 
-For any issues or questions, please [open an issue](https://github.com/your-username/stockhub/issues) on GitHub.
+For any issues or questions, please [open an issue](https://github.com/your-username/eLibrario/issues) on GitHub.
 
 ---
 
-Thank you for choosing StockHub for your stock-related endeavors. We hope this platform enhances your stock market experience. If you have any feedback or suggestions, feel free to reach out. Happy investing!
+Thank you for choosing eLibrario for your Library Management System. We hope this platform enhances your Online Library experience. If you have any feedback or suggestions, feel free to reach out. Happy reading!
