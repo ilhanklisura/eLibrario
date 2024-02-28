@@ -21,7 +21,7 @@ Welcome to eLibrario! It simplifies library management by offering a user-friend
 ## Technologies Used
 
 - **Frontend:** HTML/CSS (Bootstrap), JavaScript (AJAX, jQuery)
-- **Backend:** PHP
+- **Backend:** PHP (FlightPHP)
 - **Database:** MySQL
 - **Authentication:** JSON Web Tokens (JWT)
 - **Integration:** OpenAPI 3
