@@ -1,78 +1,76 @@
-# eLibrario: Library Management System
+# TalentTrack - Employee Management System
 
-Welcome to eLibrario! It simplifies library management by offering a user-friendly interface for administrators to handle book and member information effortlessly. With features such as secure user authentication, responsive design, and a streamlined borrowing system, eLibrario ensures a smooth and organized library experience. The technology stack includes HTML/CSS for front-end styling, Bootstrap for responsiveness, JavaScript for dynamic interactions, PHP for server-side logic, MySQL for data storage, OpenAPI for documentation, and JWT Authentication for secure user access.
+## Overview
 
-## Features
+TalentTrack is a comprehensive Employee Management System designed to streamline and optimize the management of personnel within an organization. This system is developed as part of a university course project and utilizes a modern tech stack for efficient and robust functionality.
 
-- **Real-time Library Information:** Access up-to-date books, including adding, updating, and deleting book records.
+## Tech Stack
 
-- **Borrowing System:** Facilitate the borrowing and returning of books with a smooth process.
-
-- **Search Functionality:** Efficient search functionality for books and members.
-
-- **Member Management:** Keep track of library members with a user-friendly interface.
-
-- **User-Friendly Interface:** Enjoy a responsive and intuitive interface for a seamless user experience.
-
-- **Authentication and Authorization:** Ensure the security of your library and users with JSON Web Tokens and robust authentication mechanisms.
-
-- **OpenAPI Integration:** Utilize OpenAPI for easy integration with other library services and data providers.
-
-## Technologies Used
-
-- **Frontend:** HTML/CSS (Bootstrap), JavaScript (AJAX, jQuery)
+- **Frontend:** HTML/CSS (Bootstrap and SASS), JavaScript (AJAX, jQuery)
 - **Backend:** PHP (FlightPHP)
 - **Database:** MySQL
 - **Authentication:** JSON Web Tokens (JWT)
 - **Integration:** OpenAPI 3
 
+## Features
+
+1. **User Authentication:** Secure login and authentication system using JSON Web Tokens (JWT) for enhanced security.
+
+2. **Employee Management:** Efficiently manage employee details, roles, and permissions.
+
+3. **Department Management:** Organize employees into departments for better categorization and management.
+
+4. **Leave Management:** Track and manage employee leave requests and approvals.
+
+5. **Performance Tracking:** Monitor and evaluate employee performance through a user-friendly interface.
+
+6. **OpenAPI Integration:** Seamlessly integrate with other systems using OpenAPI 3 for enhanced interoperability.
+
 ## Getting Started
+
+Follow these steps to set up TalentTrack on your local machine:
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/your-username/eLibrario.git
-   ```
+    ```bash
+    git clone https://github.com/your-username/talenttrack.git
+    ```
 
-2. Set up the database:
+2. Configure the Database:
+   
+    - Create a MySQL database and import the provided `talenttrack.sql` file.
+    - Update the `config.php` file with your database credentials.
 
-   - Create a MySQL database and import the provided SQL schema.
+3. Configure OpenAPI Integration:
 
-   ```bash
-   mysql -u your_username -p your_database < database/schema.sql
-   ```
+    - Review the OpenAPI 3 documentation for external system integration.
+    - Update the necessary configuration files with API endpoints.
 
-3. Configure the API key:
+4. Run the Application:
 
-   - Obtain an API key from your preferred stock data provider and update it in the configuration file.
+    - Ensure you have a local server environment set up (e.g., XAMPP, MAMP).
+    - Start the server and open the application in your web browser.
 
-   ```php
-   // config.php
-   define('LIBRARY_API_KEY', 'your_api_key');
-   ```
+5. Login:
 
-4. Run the application:
-
-   - Set up a PHP development server or configure your web server to serve the `public` directory.
-
-   ```bash
-   php -S localhost:8000 -t public
-   ```
-
-5. Access the application in your web browser at `http://localhost:8000`.
+    - Use the provided sample credentials to log in:
+        - Username: admin
+        - Password: password123
 
 ## Contributing
 
-We welcome contributions from the community! If you'd like to contribute to eLibrario, please follow our [contribution guidelines](CONTRIBUTING.md).
+If you would like to contribute to TalentTrack, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature: `git checkout -b feature-new-feature`.
+3. Commit your changes: `git commit -m 'Add new feature'`.
+4. Push to the branch: `git push origin feature-new-feature`.
+5. Submit a pull request.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.md).
+This project is licensed under the [MIT License](LICENSE).
 
-## Support
+## Contact
 
-For any issues or questions, please [open an issue](https://github.com/your-username/eLibrario/issues) on GitHub.
-
----
-
-Thank you for choosing eLibrario for your Library Management System. We hope this platform enhances your Online Library experience. If you have any feedback or suggestions, feel free to reach out. Happy reading!
+For any inquiries or issues, please contact [work@ilhanklisura.com](mailto:work@ilhanklisura.com).
