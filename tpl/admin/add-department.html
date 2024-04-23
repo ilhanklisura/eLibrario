@@ -67,13 +67,13 @@
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="#admin-add-department" class="nav-link">
+                     <a href="#admin-add-department" class="nav-link active">
                         <i class="nav-icon fas fa-user-plus"></i>
                         <p>Add Department</p>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="#admin-working-hours" class="nav-link active">
+                     <a href="#admin-working-hours" class="nav-link">
                         <i class="nav-icon fas fa-clock"></i>
                         <p>Working Hours</p>
                      </a>
@@ -137,12 +137,17 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-         <!-- Content Header (Page header) -->
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                     <h1>View Activity</h1>
+                     <h1>Add New Department</h1>
+                  </div>
+                  <div class="col-sm-6">
+                     <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Add Department</li>
+                     </ol>
                   </div>
                </div>
             </div>
@@ -151,39 +156,46 @@
          <!-- Main content -->
          <section class="content">
             <div class="row">
-               <div class="col-12">
-                  <div class="card">
+               <div class="col-md-12">
+                  <div class="card card-primary">
                      <div class="card-header">
-                        <h3 class="card-title">Employee Activities</h3>
+                        <h3 class="card-title">Department Details</h3>
                      </div>
-                     <!-- /.card-header -->
                      <div class="card-body">
-                        <table
-                           id="activityTable"
-                           class="table table-bordered table-hover"
-                        >
-                           <thead>
-                              <tr>
-                                 <th>Project Name</th>
-                                 <th>Description</th>
-                                 <th>Status</th>
-                                 <th>Project Leader</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <!-- Activities will be loaded here by AJAX -->
-                           </tbody>
-                        </table>
+                        <form id="add-department-form">
+                           <div class="form-group">
+                              <label for="inputDepartmentName"
+                                 >Department Name</label
+                              >
+                              <input
+                                 type="text"
+                                 id="inputDepartmentName"
+                                 class="form-control"
+                                 name="department_name"
+                                 required
+                              />
+                           </div>
+                           <div class="form-group">
+                              <label for="inputManagerId">Management ID</label>
+                              <input
+                                 type="number"
+                                 id="inputManagerId"
+                                 class="form-control"
+                                 name="manager_id"
+                              />
+                           </div>
+                           <div class="card-footer">
+                              <button type="submit" class="btn btn-primary">
+                                 Add Department
+                              </button>
+                           </div>
+                        </form>
                      </div>
-                     <!-- /.card-body -->
                   </div>
-                  <!-- /.card -->
                </div>
             </div>
          </section>
-         <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
 
       <footer class="main-footer">
          <div class="float-right d-none d-sm-block"><b>Version</b> 3.2.0</div>
@@ -203,18 +215,24 @@
    <!-- ./wrapper -->
 </div>
 <script>
-   $(document).ready(function () {
-      // Fetch activities from localStorage
-      var activities = JSON.parse(localStorage.getItem("activities")) || [];
+   $("#add-department-form").submit(function (event) {
+      event.preventDefault();
+      var departmentData = {
+         department_name: $("#inputDepartmentName").val(),
+         manager_id: $("#inputManagerId").val(),
+      };
 
-      activities.forEach(function (activity) {
-         var row = `<tr>
-                    <td>${activity.projectName}</td>
-                    <td>${activity.description}</td>
-                    <td>${activity.status}</td>
-                    <td>${activity.projectLeader}</td>
-                  </tr>`;
-         $("#activityTable tbody").append(row);
+      $.ajax({
+         url: "backend/add_department.php",
+         type: "POST",
+         contentType: "application/json",
+         data: JSON.stringify(departmentData),
+         success: function (response) {
+            console.log("Department Added", response);
+         },
+         error: function (xhr, status, error) {
+            console.error("Error Adding Department", error);
+         },
       });
    });
 </script>
