@@ -73,7 +73,7 @@
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="#admin-working-hours" class="nav-link active">
+                     <a href="#admin-working-hours" class="nav-link">
                         <i class="nav-icon fas fa-clock"></i>
                         <p>Working Hours</p>
                      </a>
@@ -85,7 +85,7 @@
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="#admin-add-employee" class="nav-link">
+                     <a href="#admin-add-employee" class="nav-link active">
                         <i class="nav-icon fas fa-user-plus"></i>
                         <p>Add Employee</p>
                      </a>
@@ -137,12 +137,17 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-         <!-- Content Header (Page header) -->
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                     <h1>View Activity</h1>
+                     <h1>Add New Employee</h1>
+                  </div>
+                  <div class="col-sm-6">
+                     <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Add Employee</li>
+                     </ol>
                   </div>
                </div>
             </div>
@@ -151,33 +156,85 @@
          <!-- Main content -->
          <section class="content">
             <div class="row">
-               <div class="col-12">
-                  <div class="card">
+               <div class="col-md-12">
+                  <div class="card card-primary">
                      <div class="card-header">
-                        <h3 class="card-title">Employee Activities</h3>
+                        <h3 class="card-title">Employee Details</h3>
                      </div>
-                     <!-- /.card-header -->
                      <div class="card-body">
-                        <table
-                           id="activityTable"
-                           class="table table-bordered table-hover"
-                        >
-                           <thead>
-                              <tr>
-                                 <th>Project Name</th>
-                                 <th>Description</th>
-                                 <th>Status</th>
-                                 <th>Project Leader</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <!-- Activities will be loaded here by AJAX -->
-                           </tbody>
-                        </table>
+                        <form id="add-employee-form">
+                           <div class="form-group">
+                              <label for="inputFirstName">First Name</label>
+                              <input
+                                 type="text"
+                                 id="inputFirstName"
+                                 class="form-control"
+                                 name="first_name"
+                                 required
+                              />
+                           </div>
+                           <div class="form-group">
+                              <label for="inputLastName">Last Name</label>
+                              <input
+                                 type="text"
+                                 id="inputLastName"
+                                 class="form-control"
+                                 name="last_name"
+                                 required
+                              />
+                           </div>
+                           <div class="form-group">
+                              <label for="inputEmail">Email</label>
+                              <input
+                                 type="email"
+                                 id="inputEmail"
+                                 class="form-control"
+                                 name="email"
+                                 required
+                              />
+                           </div>
+                           <div class="form-group">
+                              <label for="inputDateOfBirth"
+                                 >Date of Birth</label
+                              >
+                              <input
+                                 type="date"
+                                 id="inputDateOfBirth"
+                                 class="form-control"
+                                 name="date_of_birth"
+                                 required
+                              />
+                           </div>
+                           <div class="form-group">
+                              <label for="inputPosition">Position</label>
+                              <input
+                                 type="text"
+                                 id="inputPosition"
+                                 class="form-control"
+                                 name="position"
+                                 required
+                              />
+                           </div>
+                           <div class="form-group">
+                              <label for="inputDepartmentId"
+                                 >Department ID</label
+                              >
+                              <input
+                                 type="number"
+                                 id="inputDepartmentId"
+                                 class="form-control"
+                                 name="department_id"
+                                 required
+                              />
+                           </div>
+                           <div class="card-footer">
+                              <button type="submit" class="btn btn-primary">
+                                 Add Employee
+                              </button>
+                           </div>
+                        </form>
                      </div>
-                     <!-- /.card-body -->
                   </div>
-                  <!-- /.card -->
                </div>
             </div>
          </section>
@@ -204,17 +261,30 @@
 </div>
 <script>
    $(document).ready(function () {
-      // Fetch activities from localStorage
-      var activities = JSON.parse(localStorage.getItem("activities")) || [];
+      $("#add-employee-form").submit(function (event) {
+         event.preventDefault();
 
-      activities.forEach(function (activity) {
-         var row = `<tr>
-                    <td>${activity.projectName}</td>
-                    <td>${activity.description}</td>
-                    <td>${activity.status}</td>
-                    <td>${activity.projectLeader}</td>
-                  </tr>`;
-         $("#activityTable tbody").append(row);
+         var employeeData = {
+            first_name: $("#inputFirstName").val(),
+            last_name: $("#inputLastName").val(),
+            email: $("#inputEmail").val(),
+            date_of_birth: $("#inputDateOfBirth").val(),
+            position: $("#inputPosition").val(),
+            department_id: $("#inputDepartmentId").val(),
+         };
+
+         $.ajax({
+            url: "backend/add_employee.php",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(employeeData),
+            success: function (response) {
+               alert("Employee added successfully!");
+            },
+            error: function (xhr, status, error) {
+               alert("Error adding employee: " + error);
+            },
+         });
       });
    });
 </script>
