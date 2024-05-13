@@ -4,14 +4,14 @@ require_once __DIR__ . "/../config.php";
 
 class BaseDao
 {
-  protected $connection;
+  protected $conn;
   private $table;
 
   public function __construct($table)
   {
     $this->table = $table;
     try {
-      $this->connection = new PDO(
+      $this->conn = new PDO(
         "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";port=" . DB_PORT,
         DB_USER,
         DB_PASSWORD,
@@ -27,7 +27,7 @@ class BaseDao
 
   protected function query($query, $params)
   {
-    $statement = $this->connection->prepare($query);
+    $statement = $this->conn->prepare($query);
     $statement->execute($params);
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -40,7 +40,7 @@ class BaseDao
 
   protected function execute($query, $params)
   {
-    $prepared_statement = $this->connection->prepare($query);
+    $prepared_statement = $this->conn->prepare($query);
     if ($params) {
       foreach ($params as $key => $param) {
         $prepared_statement->bindValue($key, $param);
@@ -71,9 +71,9 @@ class BaseDao
     $query .= ")";
     // INSERT INTO users (first_name, last_name) VALUES (:first_name, :last_name)
 
-    $statement = $this->connection->prepare($query);
+    $statement = $this->conn->prepare($query);
     $statement->execute($entity); // SQL injection prevention
-    $entity['id'] = $this->connection->lastInsertId();
+    $entity['id'] = $this->conn->lastInsertId();
     return $entity;
   }
 }
