@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../services/AuthService.class.php';
+require_once __DIR__ . '/../config.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -13,77 +14,79 @@ Flight::group('/auth', function() {
      * @OA\Post(
      *      path="/auth/login",
      *      tags={"auth"},
-     *      summary="Login to system using email and password",
+     *      summary="Login to system",
      *      @OA\Response(
      *           response=200,
-     *           description="Patient data and JWT"
+     *           description="User data and JWT token"
      *      ),
      *      @OA\RequestBody(
-     *          description="Credentials",
+     *          description="User credentials",
      *          @OA\JsonContent(
-     *              required={"email","password"},
-     *              @OA\Property(property="email", type="string", example="example@example.com", description="Patient email address"),
-     *              @OA\Property(property="password", type="string", example="some_password", description="Patient password")
-     *          )
-     *      )
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", required=true, type="string", example="ilhan.klisura@stu.ibu.edu.ba"),
+     *             @OA\Property(property="password", required=true, type="string", example="pass")
+     *           )
+     *      ),
      * )
      */
     Flight::route('POST /login', function() {
         $payload = Flight::request()->data->getData();
+        $user = Flight::get('auth_service')->get_user_by_email($payload['email']);
 
-        $patient = Flight::get('auth_service')->get_user_by_email($payload['email']);
-
-        if(!$patient || !password_verify($payload['password'], $patient['password']))
+        if(!$user || !password_verify($payload['password'], $user['password']))
             Flight::halt(500, "Invalid username or password");
 
-        unset($patient['password']);
-        
-        $jwt_payload = [
-            'user' => $patient,
-            'iat' => time(),
-            // If this parameter is not set, JWT will be valid for life. This is not a good approach
-            'exp' => time() + (60 * 60 * 24) // valid for day
+        unset($user['password']); // We should not encode password in token
+        $payload = [
+            'user' => $user,
+            'iat' => time(), // issued at
+            'exp' => time() + 100000 // valid for 1 minute
         ];
 
         $token = JWT::encode(
-            $jwt_payload,
-            JWT_SECRET,
+            $payload, 
+            Config::JWT_SECRET(), 
+            /**
+             * IMPORTANT:
+             * You must specify supported algorithms for your application. See
+             * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
+             * for a list of spec-compliant algorithms.
+             */
             'HS256'
         );
 
-        Flight::json(
-            array_merge($patient, ['token' => $token])
-        );
+        Flight::json([
+            'user' => array_merge($user, ['token' => $token]),
+            'token' => $token
+        ]);
     });
 
     /**
      * @OA\Post(
      *      path="/auth/logout",
      *      tags={"auth"},
-     *      summary="Logout from the system",
+     *      summary="Logout from system",
      *      security={
-     *          {"ApiKey": {}}   
+     *          {"ApiKey": {}}
      *      },
      *      @OA\Response(
      *           response=200,
-     *           description="Success response or exception if unable to verify jwt token"
+     *           description="Success response or exception"
      *      ),
      * )
      */
     Flight::route('POST /logout', function() {
         try {
-            $token = Flight::request()->getHeader("Authentication");
-            if(!$token)
-                Flight::halt(401, "Missing authentication header");
-
-            $decoded_token = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-
-            Flight::json([
-                'jwt_decoded' => $decoded_token,
-                'user' => $decoded_token->user
-            ]);
-        } catch (\Exception $e) {
-            Flight::halt(401, $e->getMessage());
-        }
+            $token = Flight::request()->getHeader('Authentication');
+            if($token){
+                $decoded_token = JWT::decode($token, new Key(Config::JWT_SECRET(), 'HS256'));
+                Flight::json([
+                    'jwt_decoded' => $decoded_token,
+                    'user' => $decoded_token->user
+                ]);
+            }
+        } catch (\Exception $e){
+            Flight::halt(500, $e->getMessage());
+        }            
     });
 });
